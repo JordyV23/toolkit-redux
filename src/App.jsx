@@ -1,10 +1,12 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useDispatch, useSelector } from "react-redux";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { dencrement, increment, incrementDouble } from "./store/slices/counter";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {counter} = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -17,14 +19,20 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <p>count is {counter}</p>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={()=> {dispatch( increment() )}}>
+          Incremente
+        </button>
+        <button onClick={()=> {dispatch( dencrement() )}}>
+          Decrement
+        </button>
+        <button onClick={()=> {dispatch( incrementDouble(2) )}}>
+          IncrementDouble
         </button>
       </div>
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;
